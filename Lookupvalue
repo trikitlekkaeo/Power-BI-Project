@@ -1,3 +1,0 @@
-Case1: Lookup another table and condition
-Lookup = if(isblank(
-    LOOKUPVALUE('table1'[column ID],'table1'[column2],'table2'[Column ID])),"No","Yes")
