@@ -24,31 +24,31 @@
 
 
 //Case3(Column): Calculate and Return Only Max Value by ID or by Multiple Column Conditions.
-Max Value = 
-VAR MaxValue =
-    CALCULATE (
-        MAX ( Table[Column Value] ),
-        ALLEXCEPT ( Table, Table[Column1],Table[Column2]),Table[Column Condition]<>0 ---->optional
-    )
-RETURN
-    CALCULATE (
-        MAX ( Table[Column Value]),
-        FILTER (
-            ALLEXCEPT ( Table, Table[Column3],Table[Column4] ),
-            Table[Column Value] = MaxVol
+    Max Value = 
+    VAR MaxValue =
+        CALCULATE (
+            MAX ( Table[Column Value] ),
+            ALLEXCEPT ( Table, Table[Column1],Table[Column2]),Table[Column Condition]<>0 ---->optional
         )
-    )
+    RETURN
+        CALCULATE (
+            MAX ( Table[Column Value]),
+            FILTER (
+                ALLEXCEPT ( Table, Table[Column3],Table[Column4] ),
+                Table[Column Value] = MaxVol
+            )
+        )
 
 
 //Case4(Column): Sum Value with Multiple Columns Condition and Return on Row of Max Value.
-Sum Value = 
-VAR SumValue=
-CALCULATE(SUM(Table[Column Value]),
-ALLEXCEPT(Table,Table[Column1],Table[Column2],Table[Column3]) )
+    Sum Value = 
+    VAR SumValue=
+    CALCULATE(SUM(Table[Column Value]),
+    ALLEXCEPT(Table,Table[Column1],Table[Column2],Table[Column3]) )
 
-return
-IF (
-    Table[Column Value]
-        = CALCULATE ( MAX ( Table[Total Volume] ), ALLEXCEPT ( Table, Table[Column1],Table[Column2],Table[Column3] ) ),
-    SumVol
-) 
+    return
+    IF (
+        Table[Column Value]
+            = CALCULATE ( MAX ( Table[Total Volume] ), ALLEXCEPT ( Table, Table[Column1],Table[Column2],Table[Column3] ) ),
+        SumVol
+    ) 
