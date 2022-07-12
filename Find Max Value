@@ -1,0 +1,10 @@
+Max. Date Table = CALCULATETABLE(
+    SUMMARIZE('Table1',
+    'Table1'[Column1],
+    'Table1'[Column2])
+    FILTER('Table1',
+    'Table1'[last_update]=CALCULATE(MAX('Table1'[last_update]),
+    FILTER('Table1',
+    'Table1'[column ID]=EARLIER('Table1'[column ID])),
+    FILTER('Table1',
+    'Table1'[Column xx]= "Word1" || 'Table1'[Column yy]= "Word2"))))
