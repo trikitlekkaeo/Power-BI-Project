@@ -1,4 +1,4 @@
-//Case1: Find Max Date/Latest Date each ID
+//Case1(Table): Find Max Date/Latest Date each ID
     Max. Date Table = CALCULATETABLE(
         SUMMARIZE('Table1',
         'Table1'[Column1],
@@ -10,7 +10,7 @@
         FILTER('Table1', 
         'Table1'[Column xx]= "Word1" || 'Table1'[Column yy]= "Word2"))))
         
-//Case2: Return Only Max Value by Filter Columns
+//Case2(Table): Return Only Max Value by Filter Columns
     Max.Value = SUMMARIZE(Table,Table[Column1],Table[Column2],Table[Column3], "Max.Vol", 
     CALCULATE (
         MAX (Table[Column Volume]),
@@ -21,3 +21,20 @@
                 )
         )
     )))
+
+
+//Case3(Column): Calculate and Return Only Max Value by ID or by Multiple Column Conditions
+Max Value = 
+VAR MaxValue =
+    CALCULATE (
+        MAX ( Table[Column Value] ),
+        ALLEXCEPT ( Table, Table[Column1],Table[Column2]),Table[Column Condition]<>0 ---->optional
+    )
+RETURN
+    CALCULATE (
+        MAX ( Table[Column Value]),
+        FILTER (
+            ALLEXCEPT ( Table, Table[Column3],Table[Column4] ),
+            Table[Column Value] = MaxVol
+        )
+    )
