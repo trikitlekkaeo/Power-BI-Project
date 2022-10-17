@@ -1,0 +1,9 @@
+Steps
+1. Select Excel File
+2. Select Embed
+3. Copy Embed and Copy Link only
+4. Change embed to download and add &app=Excel
+
+https://onedrive.live.com/embed?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&em=2
+to
+https://onedrive.live.com/download?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&em=2&app=Excel
