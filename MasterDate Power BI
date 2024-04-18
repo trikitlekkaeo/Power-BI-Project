@@ -1,0 +1,42 @@
+let
+    StartDate = let
+    CurrentYear       = Date.Year(DateTime.LocalNow()),
+    CurrentMonth      = Date.Month(DateTime.LocalNow()),
+    StartYear         = CurrentYear - 2,
+    EndYear           = CurrentYear + 1, //Add Year compare Now
+    StartDate         = #date(StartYear, 1, 1),
+    EndDate           = #date(EndYear, 12, 31),
+    StartDateAsNumber = Number.From(StartDate),
+    EndDateAsNumber   = Number.From(EndDate),
+    DateList          = {StartDateAsNumber .. EndDateAsNumber},
+    ToTable           = Table.FromList(
+                            DateList,
+                            Splitter.SplitByNothing(),
+                            null,
+                            null,
+                            ExtraValues.Error
+                       ),
+    RenameColumn      = Table.RenameColumns(ToTable, {"Column1", "Date"}),
+    ToDate            = Table.TransformColumnTypes(RenameColumn, {"Date", type date}),
+    AddYTD            = Table.AddColumn(
+                            ToDate,
+                            "Timeline",
+                            each 
+                                if Date.Year([Date]) = CurrentYear and Date.Month([Date]) <= CurrentMonth then "YTD"
+                                else if Date.Year([Date]) = CurrentYear and Date.Month([Date]) > CurrentMonth then "Rolling"
+                                else if Date.Year([Date]) > CurrentYear then "Rolling"
+                                else "Previous"
+                        )
+in
+    AddYTD,
+  #"Sorted rows 1" = Table.Sort(StartDate, {{"Date", Order.Descending}})
+,
+  #"Inserted year" = Table.AddColumn(#"Sorted rows 1", "Year", each Date.Year([Date]), type nullable number),
+  #"Inserted month" = Table.AddColumn(#"Inserted year", "Month", each Date.Month([Date]), type nullable number),
+  #"Inserted month name" = Table.AddColumn(#"Inserted month", "Month name", each Date.ToText([Date], "MMM"), type nullable text),
+  #"Added custom" = Table.AddColumn(#"Inserted month name", "Month-Year", each [Month name] & "-" & Text.From([Year]))
+
+
+
+in
+    #"Added custom"
